@@ -45,6 +45,7 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
                 async with session.post(
                     parse.urljoin(self.captcha_params.request_url, url_postfix),
                     json=self.captcha_params.create_task_payload.to_dict(),
+                    ssl=False,
                 ) as resp:
                     if resp.status in VALID_STATUS_CODES:
                         return await resp.json()
@@ -69,6 +70,7 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
                     async with session.post(
                         parse.urljoin(self.captcha_params.request_url, url_postfix),
                         json=self.captcha_params.get_result_params.to_dict(),
+                        ssl=False,
                     ) as resp:
                         if resp.status in VALID_STATUS_CODES:
                             result_data = CaptchaResponseSer(**await resp.json())
@@ -101,7 +103,7 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
 
         async with aiohttp.ClientSession() as session:
             try:
-                async with session.post(parse.urljoin(REQUEST_URL, url_postfix.value), json=payload) as resp:
+                async with session.post(parse.urljoin(REQUEST_URL, url_postfix.value), json=payload, ssl=False) as resp:
                     if resp.status == 200:
                         return await resp.json()
                     else:

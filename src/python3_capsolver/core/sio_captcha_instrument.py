@@ -106,7 +106,7 @@ class SIOCaptchaInstrument(CaptchaInstrumentBase):
         Function send SYNC request to service and wait for result
         """
         try:
-            resp = session.post(parse.urljoin(REQUEST_URL, url_postfix.value), json=payload)
+            resp = session.post(parse.urljoin(REQUEST_URL, url_postfix.value), json=payload, ssl=False)
             if resp.status_code == 200:
                 return resp.json()
             else:

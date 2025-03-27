@@ -82,7 +82,7 @@ class FileInstrument:
         async with aiohttp.ClientSession() as session:
             async for attempt in ASYNC_RETRIES:
                 with attempt:
-                    async with session.get(url=url, **kwargs) as resp:
+                    async with session.get(url=url, ssl=False, **kwargs) as resp:
                         return await resp.content.read()
 
     def file_processing(
