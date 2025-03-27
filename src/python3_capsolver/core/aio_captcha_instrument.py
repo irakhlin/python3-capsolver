@@ -13,7 +13,6 @@ from .captcha_instrument import CaptchaInstrumentBase
 
 __all__ = ("AIOCaptchaInstrument",)
 
-
 class AIOCaptchaInstrument(CaptchaInstrumentBase):
     """
     Instrument for working with async captcha
