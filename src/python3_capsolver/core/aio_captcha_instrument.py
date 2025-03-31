@@ -39,7 +39,7 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
         """
         Function send the ASYNC request to service and wait for result
         """
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(force_close=True, enable_cleanup_closed=True, limit=0)) as session:
             try:
                 async with session.post(
                     parse.urljoin(self.captcha_params.request_url, url_postfix),
@@ -63,7 +63,7 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
 
         self.captcha_params.get_result_params.taskId = self.created_task_data.taskId
         attempts = attempts_generator()
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(force_close=True, enable_cleanup_closed=True, limit=0)) as session:
             for _ in attempts:
                 try:
                     async with session.post(
@@ -100,7 +100,7 @@ class AIOCaptchaInstrument(CaptchaInstrumentBase):
         Function send ASYNC request to service and wait for result
         """
 
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(force_close=True, enable_cleanup_closed=True, limit=0)) as session:
             try:
                 async with session.post(parse.urljoin(REQUEST_URL, url_postfix.value), json=payload, ssl=False) as resp:
                     if resp.status == 200:

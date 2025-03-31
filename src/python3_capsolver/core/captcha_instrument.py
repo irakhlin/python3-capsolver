@@ -79,7 +79,7 @@ class FileInstrument:
         """
         Async method read bytes from link
         """
-        async with aiohttp.ClientSession() as session:
+        async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(force_close=True, enable_cleanup_closed=True, limit=0)) as session:
             async for attempt in ASYNC_RETRIES:
                 with attempt:
                     async with session.get(url=url, ssl=False, **kwargs) as resp:
